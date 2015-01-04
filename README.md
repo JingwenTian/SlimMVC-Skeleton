@@ -7,21 +7,21 @@ Slim Framework skeleton application with MVC Schema
 
 **目录结构**
 
-  | - /config 配置文件
-  | - /lib 功能类
-  | - /logs 日志
-  | - /models Model层
-  | - /routers 路由层(Controller层)
-  | - /templates 视图层(View层)
-  | - /public
-        | - index.php 入口文件
-        | - css/js/images/libs 静态文件目录
-  | - bootstrap.php 引导文件
+    | - /config 配置文件
+    | - /lib 功能类
+    | - /logs 日志
+    | - /models Model层
+    | - /routers 路由层(Controller层)
+    | - /templates 视图层(View层)
+    | - /public
+          | - index.php 入口文件
+          | - css/js/images/libs 静态文件目录
+    | - bootstrap.php 引导文件
   
 **安装**
 
- - 在项目根目录运行 'php composer.phar install' 如需了解composer [请查看](http://www.jingwentian.com/t-421)
- - 将配置文件 config/config.php.sample 重命名为 config/config.php 并且修改基本的配置信息(如数据库信息以及一些常亮)
+ - 在项目根目录运行 `php composer.phar install` 如需了解composer [请查看](http://www.jingwentian.com/t-421)
+ - 将配置文件 `config/config.php.sample` 重命名为 `config/config.php` 并且修改基本的配置信息(如数据库信息以及一些常亮)
  - Enjoy 
 
 **URL-rewriting**
