@@ -21,7 +21,7 @@ Slim Framework skeleton application with MVC Schema
 **安装**
 
  - 在项目根目录运行 `php composer.phar install` 如需了解composer [请查看](http://www.jingwentian.com/t-421)
- - 将配置文件 `config/config.php.sample` 重命名为 `config/config.php` 并且修改基本的配置信息(如数据库信息以及一些常亮)
+ - 将配置文件 `config/config.php.sample` 重命名为 `config/config.php` 并且修改基本的配置信息(如数据库信息以及一些常量)
  - Enjoy 
 
 **URL-rewriting**
@@ -41,6 +41,10 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [QSA,L]
 ```
+
+**致谢**
+
+- [Slim Framework](https://github.com/codeguy/Slim)
   
 ---
 
