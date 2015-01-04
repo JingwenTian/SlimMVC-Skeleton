@@ -1,0 +1,18 @@
+<?php
+
+use lib\Config;
+
+//DB Config
+Config::write('db.database_type', 'mysql');
+Config::write('db.database_name', 'dbname');
+Config::write('db.server', 'localhost');
+Config::write('db.port', '3306');
+Config::write('db.username', 'username');
+Config::write('db.password', 'password');
+
+//Project Config
+Config::write('path','http://localhost');
+Config::write('CSS', '/path/to/css');
+Config::write('JS', '/path/to/js');
+Config::write('IMG', '/path/to/images');
+Config::write('LIBS', '/path/to/libs');

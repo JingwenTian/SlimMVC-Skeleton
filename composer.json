@@ -1,0 +1,15 @@
+{
+    "require": {
+        "php":">=5.3.0",
+        "slim/slim": "2.*",
+        "slim/views":"0.1.*",
+        "catfan/medoo": "0.9.*",
+        "twig/twig": "~1.0",
+        "monolog/monolog": "~1.12" 
+    },
+    "autoload":{
+        "psr-0":{
+            "": ""
+        }
+    }
+}
