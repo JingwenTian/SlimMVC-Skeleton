@@ -12,12 +12,22 @@ ini_set('display_errors', 1);
 date_default_timezone_set('Asia/Shanghai');
 header("Content-Type:text/html;charset=utf-8");
 
+//Flynsarmy/Slim-Monolog
+$logger = new \Flynsarmy\SlimMonolog\Log\MonologWriter(array(
+    'handlers' => array(
+        new \Monolog\Handler\StreamHandler('../logs/'.date('Y-m-d').'.log'),
+    ),
+));
+
 /**
  * Create app
  */
 $app = new \Slim\Slim(array(
     'debug' => true,
     'MODE'  => 'development',
+    'log.enabled' => true,
+    'log.level' => \Slim\Log::EMERGENCY,
+    'log.writer' => $logger,    
     'view' => new \Slim\Views\Twig(), // Setup custom Twig view  
     'templates.path' => './templates/',
 ));
@@ -46,8 +56,8 @@ $app->add(new \Slim\Middleware\SessionCookie(array(
 
 // Create monolog logger and store logger in container as singleton 
 // (Singleton resources retrieve the same log resource definition each time)
-$app->container->singleton('log', function () {
+/*$app->container->singleton('log', function () {
     $log = new \Monolog\Logger('slim-skeleton');
-    $log->pushHandler(new \Monolog\Handler\StreamHandler('logs/app.log', \Monolog\Logger::DEBUG));
+    $log->pushHandler(new \Monolog\Handler\StreamHandler('./logs/app.log', \Monolog\Logger::DEBUG));
     return $log;
-});
+});*/

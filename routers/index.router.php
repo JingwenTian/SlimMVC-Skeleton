@@ -7,6 +7,9 @@ use lib\Tools;
 $app->get('/', function () use ($app) {
     $model = new models\User();
     $data = $model->getUsers();
-    Common::p($data);
+    
+    $app->log->info('this is index router');
+
+    //Common::p($data);
     //$app->render('index.html', array('hello' => $hello));
 });

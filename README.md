@@ -44,7 +44,19 @@ RewriteRule ^ index.php [QSA,L]
 
 **致谢**
 
-- [Slim Framework](https://github.com/codeguy/Slim)
+- Micro Framework
+    - [Slim Framework](https://github.com/codeguy/Slim)
+- Micro Framework Extras
+    - [Slim-Skeleton](https://github.com/codeguy/Slim-Skeleton)
+    - [Slim-Views](https://github.com/codeguy/Slim-Views)
+    - [Slim-Middleware](https://github.com/codeguy/Slim-Middleware)
+    - [Slim-Extras](https://github.com/codeguy/Slim-Extras)
+    - [SlimMVC](https://github.com/revuls/SlimMVC)
+ - Templating
+    - [Twig](http://twig.sensiolabs.org/)
+ - Database
+    - [Medoo](medoo.in)
+    
   
 ---
 
