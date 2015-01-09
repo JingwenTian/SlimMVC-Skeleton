@@ -8,7 +8,8 @@
         "monolog/monolog": "~1.12",
         "slim/middleware": "~1.0",
         "flynsarmy/slim-monolog": "~1.0",
-        "slim/extras": "~2.0" 
+        "slim/extras": "~2.0",
+        "entomb/slim-json-api": "~1.1" 
     },
     "autoload":{
         "psr-0":{

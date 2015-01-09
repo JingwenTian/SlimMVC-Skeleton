@@ -56,6 +56,15 @@ $isLogged = function($app) {
     };
 };
 
+/**
+ * Slim extension to implement fast JSON API's
+ */
+function APIrequest(){
+    $app = \Slim\Slim::getInstance();
+    $app->view(new \JsonApiView());
+    $app->add(new \JsonApiMiddleware());
+}
+
 
 /**
  * Include all files located in routes directory

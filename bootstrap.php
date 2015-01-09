@@ -29,12 +29,12 @@ $app = new \Slim\Slim(array(
     'log.level' => \Slim\Log::EMERGENCY,
     'log.writer' => $logger,    
     'view' => new \Slim\Views\Twig(), // Setup custom Twig view  
-    'templates.path' => './templates/',
+    'templates.path' => '../templates/',
 ));
 
 $app->view->parserOptions = array(
     'charset' => 'utf-8',
-    'cache' => realpath('./templates/cache'),
+    'cache' => realpath('../templates/cache'),
     'auto_reload' => true,
     'strict_variables' => false,
     'autoescape' => true

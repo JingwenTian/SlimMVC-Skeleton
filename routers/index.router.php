@@ -11,5 +11,5 @@ $app->get('/', function () use ($app) {
     $app->log->info('this is index router');
 
     //Common::p($data);
-    //$app->render('index.html', array('hello' => $hello));
+    $app->render('index.html', array('hello' => 'hello slim'));
 });
