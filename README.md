@@ -52,9 +52,9 @@ RewriteRule ^ index.php [QSA,L]
     - [Slim-Middleware](https://github.com/codeguy/Slim-Middleware)
     - [Slim-Extras](https://github.com/codeguy/Slim-Extras)
     - [SlimMVC](https://github.com/revuls/SlimMVC)
- - Templating
+- Templating
     - [Twig](http://twig.sensiolabs.org/)
- - Database
+- Database
     - [Medoo](medoo.in)
     
   
