@@ -42,6 +42,13 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [QSA,L]
 ```
 
+**TODO**
+
+- 依赖注入(dependency injection)
+    - [Pimple](https://github.com/silexphp/Pimple)
+    - 参考 [SlimBootstrap](https://github.com/tboronczyk/SlimBootstrap)
+- 添加常用组
+
 **致谢**
 
 - Micro Framework
