@@ -1,5 +1,6 @@
 <?php
 
+use lib\Config;
 use lib\Common;
 use lib\Tools;
 
@@ -11,5 +12,11 @@ $app->get('/', function () use ($app) {
     $app->log->info('this is index router');
 
     //Common::p($data);
-    $app->render('index.html', array('hello' => 'hello slim'));
+    $app->render('index.html', array('hello' => 'hello slim :-)'));
+});
+
+//UPLOAD DEMO
+$app->get('/upload', function() use ($app) {
+	
+	$app->render('upload.html');
 });

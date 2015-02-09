@@ -1,7 +1,7 @@
 <?php 
 
 /** 
- * ¹«¹²º¯Êı¿â
+ * å…¬å…±å‡½æ•°åº“
  * @Author: jing
  * @Usage: use lib\Common;
  *         Common::p($str);
@@ -12,12 +12,12 @@ namespace lib;
 class Common {
 
     /** 
-     * ÓÅÑÅµÄ´òÓ¡µ÷ÊÔ
+     * ä¼˜é›…çš„æ‰“å°è°ƒè¯•
      */
     public static function p() {
         $args=func_get_args();  
         if(count($args)<1){
-            Debug::addmsg("<font color='red'>±ØĞëÎªp()º¯ÊıÌá¹©²ÎÊı!");
+            Debug::addmsg("<font color='red'>å¿…é¡»ä¸ºp()å‡½æ•°æä¾›å‚æ•°!");
             return;
         }
         echo '<div style="width:100%;text-align:left; background-color: #fff;"><pre>';
@@ -36,35 +36,35 @@ class Common {
     }
 
     /**
-     * ÅĞ¶ÏÊ±¼ä´ÁÀ´Êä³ö¸Õ¸Õ/·ÖÖÓÇ°/Ğ¡Ê±Ç°/×òÌì/Ê±¼ä
-     * @Usage echo T("Ê±¼ä´Á");
+     * åˆ¤æ–­æ—¶é—´æˆ³æ¥è¾“å‡ºåˆšåˆš/åˆ†é’Ÿå‰/å°æ—¶å‰/æ˜¨å¤©/æ—¶é—´
+     * @Usage echo T("æ—¶é—´æˆ³");
      */
     public static function T($time) {
-       //»ñÈ¡½ñÌìÁè³¿µÄÊ±¼ä´Á
+       //è·å–ä»Šå¤©å‡Œæ™¨çš„æ—¶é—´æˆ³
        $day = strtotime(date('Y-m-d',time()));
-       //»ñÈ¡×òÌìÁè³¿µÄÊ±¼ä´Á
+       //è·å–æ˜¨å¤©å‡Œæ™¨çš„æ—¶é—´æˆ³
        $pday = strtotime(date('Y-m-d',strtotime('-1 day')));
-       //»ñÈ¡ÏÖÔÚµÄÊ±¼ä´Á
+       //è·å–ç°åœ¨çš„æ—¶é—´æˆ³
        $nowtime = time();
         
        $tc = $nowtime-$time;
        if($time<$pday){
           $str = date('Y-m-d H:i:s',$time);
        }elseif($time<$day && $time>$pday){
-          $str = "×òÌì";
+          $str = "æ˜¨å¤©";
        }elseif($tc>60*60){
-          $str = floor($tc/(60*60))."Ğ¡Ê±Ç°";
+          $str = floor($tc/(60*60))."å°æ—¶å‰";
        }elseif($tc>60){
-          $str = floor($tc/60)."·ÖÖÓÇ°";
+          $str = floor($tc/60)."åˆ†é’Ÿå‰";
        }else{
-          $str = "¸Õ¸Õ";
+          $str = "åˆšåˆš";
        }
        return $str;
     }
 
     public static function is_mobile() {
 
-         //ÕıÔò±í´ïÊ½,ÅúÅä²»Í¬ÊÖ»úä¯ÀÀÆ÷UA¹Ø¼ü´Ê¡£
+         //æ­£åˆ™è¡¨è¾¾å¼,æ‰¹é…ä¸åŒæ‰‹æœºæµè§ˆå™¨UAå…³é”®è¯ã€‚
 
          $regex_match="/(nokia|iphone|android|motorola|^mot\-|softbank|foma|docomo|kddi|up\.browser|up\.link|";
 
@@ -78,7 +78,7 @@ class Common {
 
          $regex_match.=")/i";
 
-         return isset($_SERVER['HTTP_X_WAP_PROFILE']) or isset($_SERVER['HTTP_PROFILE']) or preg_match($regex_match, strtolower($_SERVER['HTTP_USER_AGENT'])); //Èç¹ûUAÖĞ´æÔÚÉÏÃæµÄ¹Ø¼ü´ÊÔò·µ»ØÕæ¡£
+         return isset($_SERVER['HTTP_X_WAP_PROFILE']) or isset($_SERVER['HTTP_PROFILE']) or preg_match($regex_match, strtolower($_SERVER['HTTP_USER_AGENT'])); //å¦‚æœUAä¸­å­˜åœ¨ä¸Šé¢çš„å…³é”®è¯åˆ™è¿”å›çœŸã€‚
 
     }
 

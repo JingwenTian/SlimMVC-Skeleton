@@ -91,4 +91,6 @@ bower_components
 /templates/cache/*
 !/templates/cache/README.md
 /config/config.php
+/public/uploads/*
+!/public/uploads/README.md
 
