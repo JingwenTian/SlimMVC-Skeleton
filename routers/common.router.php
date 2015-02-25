@@ -3,19 +3,16 @@
 /**	
  * 功能方法集
  */
-use lib\Config;
-use lib\UploadFile;
-use lib\Image;
  
 $app->post('/upload', function() use($app) {
 
 	$width = $app->request()->post('width');
 	$height = $app->request()->post('height');
 	
-	$upload = new UploadFile();
+	$upload = new lib\UploadFile();
 	$upload->maxSize  = 2079152; //2M
 	$upload->allowExts  = array('jpg', 'gif', 'png', 'jpeg');
-	$upload->savePath =  Config::read('UPLOAD');
+	$upload->savePath = lib\Config::read('UPLOAD');
 	$upload->autoSub = false;
 	$upload->subType = 'date';
 	$upload->dateFormat = 'Ym/d';
@@ -37,4 +34,5 @@ $app->post('/upload', function() use($app) {
 	}
 
 });
+
 
