@@ -1,4 +1,4 @@
-SlimMVC-Skeleton
+SlimMVC-Skeleton v1.0
 ================
 
 Slim Framework skeleton application with MVC Schema
