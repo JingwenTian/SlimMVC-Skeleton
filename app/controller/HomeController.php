@@ -15,8 +15,7 @@ class HomeController
 
     public function home($request, $response, $args) 
     {
-
-        return $this->container->renderer->render($response, 'index.phtml', []);
+        return $this->container->view->render($response, 'index.phtml', []);
     }
 
 

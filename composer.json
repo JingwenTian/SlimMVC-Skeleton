@@ -21,7 +21,11 @@
         "dflydev/fig-cookies": "^1.0",
         "jasongrimes/paginator": "~1.0",
         "symfony/console": "^3.3",
-        "vlucas/phpdotenv": "^2.4"
+        "vlucas/phpdotenv": "^2.4",
+        "predis/predis": "^1.1",
+        "mongodb/mongodb": "^1.1",
+        "slim/flash": "^0.2.0",
+        "slim/csrf": "^0.8.1"
     },
     "autoload": {
         "psr-4": {
