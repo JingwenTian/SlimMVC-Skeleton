@@ -17,7 +17,7 @@ session_start();
 | Create The Application
 |--------------------------------------------------------------------------
 */
-$settings = require __DIR__ . '/src/settings.php';
+$settings = require __DIR__ . '/settings.php';
 $app = new \Slim\App($settings);
 
 /*
@@ -25,21 +25,21 @@ $app = new \Slim\App($settings);
 | Set up Util functions
 |--------------------------------------------------------------------------
 */
-require __DIR__ . '/src/utils.php';
+require __DIR__ . '/utils.php';
 
 /*
 |--------------------------------------------------------------------------
 | Set up Dependencies
 |--------------------------------------------------------------------------
 */
-require __DIR__ . '/src/dependencies.php';
+require __DIR__ . '/dependencies.php';
 
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
 |--------------------------------------------------------------------------
 */
-require __DIR__ . '/src/middleware.php';
+require __DIR__ . '/middleware.php';
 
 
 /*

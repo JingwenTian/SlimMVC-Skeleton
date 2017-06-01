@@ -86,11 +86,8 @@ composer.lock
 bower_components
 
 ### Others ###
-/logs/*
-!/logs/README.md
-/templates/cache/*
-!/templates/cache/README.md
-/config/config.php
+/storage/logs/*
+!/storage/logs/README.md
 /public/uploads/*
 !/public/uploads/README.md
 

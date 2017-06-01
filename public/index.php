@@ -1,6 +1,7 @@
 <?php
 
 ini_set('date.timezone','Asia/Shanghai');
+
 define("DS", DIRECTORY_SEPARATOR);
 define("ROOT", realpath(dirname(__DIR__)) . DS);
 
@@ -10,7 +11,7 @@ define("ROOT", realpath(dirname(__DIR__)) . DS);
 |--------------------------------------------------------------------------
 */
 
-$app = require __DIR__ . '/../src/bootstrap.php';
+$app = require __DIR__ . '/../bootstrap/app.php';
 
 /*
 |--------------------------------------------------------------------------

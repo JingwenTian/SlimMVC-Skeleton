@@ -5,3 +5,4 @@
 | Application Routes
 |--------------------------------------------------------------------------
 */
+$app->get('/', 'App\controller\HomeController:home');
