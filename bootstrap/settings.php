@@ -16,10 +16,10 @@ return [
         ],
         'database' => [
         	'database_type' => 'mysql',
-		    'database_name' => 'test',
+		    'database_name' => 'dbname',
 		    'server' 		=> '127.0.0.1',
-		    'username' 		=> 'root', 
-		    'password' 		=> 'tjw199022', 
+		    'username' 		=> 'username', 
+		    'password' 		=> 'password', 
 		    'charset' 		=> 'utf8mb4'
         ]
     ],
