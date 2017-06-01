@@ -1,21 +1,35 @@
 {
+    "name": "slim-skeleton",
+    "description": "A Slim Framework skeleton application for rapid development",
+    "keywords": ["microframework", "rest", "router", "psr7"],
+    "homepage": "https://github.com/JingwenTian/slim-skeleton",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "jingwentian",
+            "email": "mini.mosquitor@gmail.com",
+            "homepage": "http://www.jingwentian.com/"
+        }
+    ],
     "require": {
-        "php":">=5.3.0",
-        "slim/slim": "2.*",
-        "slim/views":"0.1.*",
-        "catfan/medoo": "0.9.*",
-        "twig/twig": "~1.0",
-        "monolog/monolog": "~1.12",
-        "slim/middleware": "~1.0",
-        "flynsarmy/slim-monolog": "~1.0",
-        "slim/extras": "~2.0",
-        "entomb/slim-json-api": "~1.1",
-        "pimple/pimple": "~3.0",
-        "codeguy/upload": "~1.3" 
+        "php": ">=5.5.0",
+        "slim/slim": "^3.1",
+        "monolog/monolog": "^1.21",
+        "slim/php-view": "^2.1",
+        "hashids/hashids": "^1.0",
+        "catfan/Medoo": "^1.1",
+        "dflydev/fig-cookies": "^1.0",
+        "jasongrimes/paginator": "~1.0"
+    },
+    "config": {
+        "process-timeout" : 0
     },
     "autoload":{
         "psr-0":{
             "": ""
         }
+    },
+    "scripts": {
+        "start": "php -S 0.0.0.0:8080 -t public public/index.php",
     }
 }
