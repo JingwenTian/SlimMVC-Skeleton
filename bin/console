@@ -1,0 +1,33 @@
+#!/usr/bin/env php
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| 固定逻辑命令执行入口
+|--------------------------------------------------------------------------
+| ./bin/console 指令名称
+|
+*/
+
+#error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+
+$app = require __DIR__ . '/../bootstrap/app.php';
+$container = $app->getContainer();
+
+$console = new Application();
+
+$console
+    ->register("command")
+    ->setDescription("Execute command description")
+    ->setCode(function (InputInterface $input, OutputInterface $output) use ($container) {
+        print "Execute command.\n";
+    })
+;
+
+$console->run();

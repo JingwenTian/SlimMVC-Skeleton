@@ -25,7 +25,11 @@
         "predis/predis": "^1.1",
         "mongodb/mongodb": "^1.1",
         "slim/flash": "^0.2.0",
-        "slim/csrf": "^0.8.1"
+        "slim/csrf": "^0.8.1",
+        "tuupola/slim-jwt-auth": "^2.3",
+        "tuupola/slim-basic-auth": "^2.2",
+        "ramsey/uuid": "^3.6",
+        "tuupola/base62": "^0.8.0"
     },
     "autoload": {
         "psr-4": {

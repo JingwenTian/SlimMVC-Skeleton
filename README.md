@@ -60,3 +60,13 @@ composer install
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteRule ^ index.php [QSA,L]
 	```
+
+## 依赖
+
+- [slim-jwt-auth](https://github.com/tuupola/slim-jwt-auth)
+- [slim-basic-auth](https://github.com/tuupola/slim-basic-auth)
+
+
+## 参考
+
+- [slim-api-skeleton](https://github.com/tuupola/slim-api-skeleton)

@@ -15,6 +15,8 @@ class HomeController
 
     public function home($request, $response, $args) 
     {
+    	$this->container->logger->info('hello world');
+    	
         return $this->container->view->render($response, 'index.phtml', []);
     }
 
