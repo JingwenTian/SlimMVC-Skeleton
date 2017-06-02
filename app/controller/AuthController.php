@@ -61,6 +61,7 @@ class AuthController
 	    return $response->withStatus(201)
 	        ->withHeader("Content-Type", "application/json")
             ->withJson($data);
+           
 	}
 
 	public function dump($request, $response, $args)
