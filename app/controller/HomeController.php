@@ -16,8 +16,11 @@ class HomeController
     public function home($request, $response, $args) 
     {
     	$this->container->logger->info('hello world');
-    	
-        return $this->container->view->render($response, 'index.phtml', []);
+
+        // $attrs = $request->getAttributes();
+        // echo $attrs['locale'];
+
+        return $this->container->view->render($response, 'index.phtml', ['translator' => $this->container->translator]);
     }
 
 

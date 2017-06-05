@@ -29,7 +29,14 @@
         "tuupola/slim-jwt-auth": "^2.3",
         "tuupola/slim-basic-auth": "^2.2",
         "ramsey/uuid": "^3.6",
-        "tuupola/base62": "^0.8.0"
+        "tuupola/base62": "^0.8.0",
+        "oscarotero/psr7-middlewares": "^3.20",
+        "akrabat/rka-ip-address-middleware": "^0.5.0",
+        "slim/http-cache": "^0.3.0",
+        "davidepastore/slim-restrict-route": "^0.3.0",
+        "respect/validation": "^1.1",
+        "davidepastore/slim-validation": "^0.5.0",
+        "symfony/translation": "^3.3"
     },
     "autoload": {
         "psr-4": {

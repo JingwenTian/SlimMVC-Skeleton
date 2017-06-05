@@ -5,6 +5,11 @@ use App\helper\Authentication\Token;
 use Slim\Middleware\JwtAuthentication;
 use Slim\Middleware\HttpBasicAuthentication;
 
+use App\middleware\LocalizationMiddleware;
+use Symfony\Component\Translation\Loader\PhpFileLoader;
+use Symfony\Component\Translation\MessageSelector;
+use Symfony\Component\Translation\Translator;
+
 $container = $app->getContainer();
 
 /*
@@ -72,3 +77,53 @@ $container["JwtAuthentication"] = function ($c) {
 };
 $app->add("JwtAuthentication");
 
+
+/*
+|--------------------------------------------------------------------------
+| Validation Middleware
+|--------------------------------------------------------------------------
+| Register middleware for all routes
+| referer: https://github.com/DavidePastore/Slim-Validation
+*/
+$validators = [];
+$app->add(new \DavidePastore\Slim\Validation\Validation($validators));
+
+/*
+|--------------------------------------------------------------------------
+| Translation Middleware
+|--------------------------------------------------------------------------
+| 翻译插件注册
+| 用法参考: https://github.com/symfony/translation
+*/
+$container["locale"] = function ($c) {
+    return new \stdClass();
+};
+
+$availableLocales = ['en_US', 'zh_CN', 'zh_HK', 'zh_TW', 'zh_MO'];
+$defaultLocale = $container->get('settings')['renderer']['locale_default'];
+$localesMiddeleware = new LocalizationMiddleware($availableLocales, $defaultLocale);
+$localesMiddeleware->setSearchOrder([
+    LocalizationMiddleware::FROM_URI_PARAM,
+    LocalizationMiddleware::FROM_COOKIE,
+]);
+$localesMiddeleware->setCallback(function (string $locale) use ($container) {
+    $container['locale']->lang = $locale;
+});
+$app->add($localesMiddeleware);
+
+$container["translator"] = function ($c) {
+
+    $path = $c->get('settings')['renderer']['translations_path'];
+    
+    $language = $c['locale']->lang;
+    $translator = new Translator($language, new MessageSelector());
+    $translator->setFallbackLocales(['zh_HK']);
+    $translator->addLoader('php', new PhpFileLoader());
+    $translator->addResource('php', $path . 'en_US.php', 'en_US'); // English 
+    $translator->addResource('php', $path . 'zh_CN.php', 'zh_CN'); // Chinese (Simplified, PRC) 
+    $translator->addResource('php', $path . 'zh_HK.php', 'zh_HK'); // Chinese (Traditional, Hong Kong S.A.R.) 
+    $translator->addResource('php', $path . 'zh_HK.php', 'zh_TW'); // Chinese (Traditional, Taiwan)
+    $translator->addResource('php', $path . 'zh_HK.php', 'zh_MO'); // Chinese (Traditional, Macao S.A.R.)
+
+    return $translator;
+};
