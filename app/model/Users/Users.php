@@ -5,7 +5,7 @@ namespace App\model\Users;
 use App\model\ModelInterface;
 use App\model\Common;
 
-class User implements ModelInterface
+class Users implements ModelInterface
 {
 	public  $_dbLink;
 	private $_table = 'users';
