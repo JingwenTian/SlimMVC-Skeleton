@@ -3,6 +3,8 @@
 > Slim Framework skeleton application with MVC Schema
 >
 > Slim Website: https://www.slimframework.com/
+>
+> DEMO: http://slim.dev.jingplus.com/
 
 ## 目录结构
 
