@@ -9,4 +9,4 @@
 | $app->getContainer()->get('router')->pathFor('hello', ['name' => 'world']); => /hello/world
 |
 */
-$app->get('/', 'App\controller\HomeController:home')->setName('home');
+$app->get('/', 'App\controller\frontend\HomeController:home')->setName('frontend.home');

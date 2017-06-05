@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\controller;
+namespace App\controller\frontend;
 
 use Interop\Container\ContainerInterface;
 
@@ -20,7 +20,8 @@ class HomeController
         // $attrs = $request->getAttributes();
         // echo $attrs['locale'];
 
-        return $this->container->view->render($response, 'index.phtml', ['translator' => $this->container->translator]);
+        return $this->container->view->render($response, 'frontend/home/index.phtml', ['translator' => $this->container->translator]);
+        
     }
 
 

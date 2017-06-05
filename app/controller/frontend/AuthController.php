@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\controller;
+namespace App\controller\frontend;
 
 use Interop\Container\ContainerInterface;
 use Ramsey\Uuid\Uuid;

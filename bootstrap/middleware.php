@@ -93,7 +93,7 @@ $app->add(new \DavidePastore\Slim\Validation\Validation($validators));
 | Translation Middleware
 |--------------------------------------------------------------------------
 | 翻译插件注册
-| 用法参考: https://github.com/symfony/translation
+| 用法参考: https://github.com/symfony/translation & https://github.com/tboronczyk/localization-middleware
 */
 $container["locale"] = function ($c) {
     return new \stdClass();

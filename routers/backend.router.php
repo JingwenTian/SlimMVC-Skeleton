@@ -1,6 +1,7 @@
 <?php 
-// http://discourse.slimframework.com/t/how-would-you-guys-implement-admins-and-mods-into-your-app/395
-// $app->group('/management', function () {
-//     $this->get('/dashboard', 'AuthController:dashboard')->setName('dashboard');
 
-// })->add(new AdminMiddleware($container));
+$app->group('/management', function () {
+	$this->get('', 'App\controller\backend\HomeController:dashboard')->setName('backend.home');
+    $this->get('/dashboard', 'App\controller\backend\HomeController:dashboard')->setName('backend.dashboard');
+
+});
