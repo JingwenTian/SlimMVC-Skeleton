@@ -90,5 +90,6 @@ bower_components
 !/storage/logs/README.md
 /public/uploads/*
 !/public/uploads/README.md
-/public/assets/vendor/bower_components/
+/public/assets/vendors/*
+!/public/assets/vendors/bower.json
 
