@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // DIC configuration
 $container = $app->getContainer();
@@ -113,6 +113,7 @@ $container['logger'] = function ($c) {
 */
 $container['db'] = function ($c) {
     $settings = $c->get('settings')['database'];
-    $database = new \Medoo\Medoo($settings);
+//    $database = new \Medoo\Medoo($settings);
+    $database = \App\helper\Database\Database::getInstance($settings);
     return $database;
 };

@@ -2,14 +2,10 @@
 
 namespace App\model\Users;
 
-use App\model\ModelInterface;
-use App\model\Common;
+use App\model\Model;
 
-class Users implements ModelInterface
+class Users extends Model
 {
-	public  $_dbLink;
-	private $_table = 'users';
-
-	use Common;
+	protected $_table = 'users';
 
 }
