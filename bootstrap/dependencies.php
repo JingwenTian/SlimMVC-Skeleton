@@ -117,3 +117,15 @@ $container['db'] = function ($c) {
     $database = \App\helper\Database\Database::getInstance($settings);
     return $database;
 };
+
+/*
+|--------------------------------------------------------------------------
+| Cache handler
+|--------------------------------------------------------------------------
+| 注册缓存, 此处应用 Redis
+|
+*/
+$container['redis'] = function ($c) {
+    $settings = $c->get('settings')['cache'];
+    return \App\helper\Database\Cache::getInstance($settings);
+};

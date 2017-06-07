@@ -2,7 +2,7 @@
 
 return [
     'settings' => [
-        'displayErrorDetails' => false, // set to false in production
+        'displayErrorDetails' => true, // set to false in production
         'addContentLengthHeader' => false, // Allow the web server to send the content-length header
         'determineRouteBeforeAppMiddleware' => true, // // Only set this if you need access to route within middleware
         // Renderer settings
@@ -25,6 +25,13 @@ return [
 		    'username' 		=> 'username', 
 		    'password' 		=> 'password', 
 		    'charset' 		=> 'utf8mb4'
+        ],
+        'cache' => [
+            'scheme'        => 'tcp',
+            'host'          => '127.0.0.1',
+            'port'          => 6379,
+            'database'      => 2,
+            //'password'      => '',
         ],
         // Authentication settings
         'httpBasicAuthentication' => [

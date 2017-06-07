@@ -46,20 +46,6 @@ $container['notAllowedHandler'] = function ($c) {
 
 /*
 |--------------------------------------------------------------------------
-| System Error Handler
-|--------------------------------------------------------------------------
-| 500 的抛错方式转为 Json 形式，常用与 API开发，可以输出错误页面
-|
-*/
-$container['errorHandler'] = function ($c) {
-    return function ($request, $response, $methods) use ($c) {
-        return $c['response']->withStatus(500)
-                             ->withJson(['code' => 500, 'message' => 'Something went wrong!']);
-    };
-};
-
-/*
-|--------------------------------------------------------------------------
 | PHP Runtime Error Handler
 |--------------------------------------------------------------------------
 | 500 的抛错方式转为 Json 形式，常用与 API开发，可以输出错误页面
