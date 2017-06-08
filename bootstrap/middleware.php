@@ -2,10 +2,13 @@
 //Application middleware
 
 use App\helper\Authentication\Token;
+
 use Slim\Middleware\JwtAuthentication;
 use Slim\Middleware\HttpBasicAuthentication;
 
 use App\middleware\LocalizationMiddleware;
+use App\middleware\SessionDistributedMiddleware;
+
 use Symfony\Component\Translation\Loader\PhpFileLoader;
 use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Translator;
@@ -127,3 +130,14 @@ $container["translator"] = function ($c) {
 
     return $translator;
 };
+
+
+/*
+|--------------------------------------------------------------------------
+| Session Distributed Middleware
+|--------------------------------------------------------------------------
+| 将 session 存储方式注册为 Redis
+*/
+$sessionOptions = $container->get('settings')['session'];
+$sessionMiddleware = new SessionDistributedMiddleware($container['cache'], $sessionOptions);
+$app->add($sessionMiddleware);

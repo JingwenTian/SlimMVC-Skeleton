@@ -20,8 +20,8 @@ class HomeController
         // $attrs = $request->getAttributes();
         // echo $attrs['locale'];
         
-        // $this->container->redis->set("cache_key", "hello world");
-        // echo $this->container->redis->get("cache_key");
+        // $this->container->cache->set("cache_key", "hello slim");
+        // echo $this->container->cache->get("cache_key");
 
         return $this->container->view->render($response, 'frontend/home/index.phtml', ['translator' => $this->container->translator]);
         

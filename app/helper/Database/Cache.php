@@ -11,7 +11,7 @@ class Cache
     {
     }
 
-    public static function getInstance(array $options = [])
+    public static function getInstance(array $options = [], array $extends = [])
     {
     	if (!is_null(static::$instance)) {
             return static::$instance;
@@ -22,13 +22,14 @@ class Cache
     		$options  = isset($settings['settings']['cache']) ? $settings['settings']['cache'] : [];
     	}
 
-        static::$instance = static::setInstance($options);
+        static::$instance = static::setInstance($options, $extends);
 
         return static::$instance;
     }
 
-    private static function setInstance(array $options = []){
-        return new \Predis\Client($options);
+    private static function setInstance(array $options = [], array $extends = [])
+    {
+        return new \Predis\Client($options, $extends);
     }
 
     
