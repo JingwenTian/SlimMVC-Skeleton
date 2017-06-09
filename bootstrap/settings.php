@@ -26,12 +26,26 @@ return [
 		    'password' 		=> 'password', 
 		    'charset' 		=> 'utf8mb4'
         ],
+        // Cache settings
         'cache' => [
             'scheme'        => 'tcp',
             'host'          => '127.0.0.1',
             'port'          => 6379,
             'database'      => 1,
             //'password'      => '',
+        ],
+        // Qiniu Storage settings
+        'upload'    => [
+            'driver'    => 'qiniu',
+            'drivers'   => [
+                'qiniu' => [
+                    'domain'        => '',
+                    'access_key'    => '',
+                    'secret_key'    => '',
+                    'bucket'        => '',
+                    'timeout'       => 90,
+                ]
+            ]
         ],
         'session' => [
             'gc_maxlifetime'   => 3600,
