@@ -8,6 +8,7 @@ use Slim\Middleware\HttpBasicAuthentication;
 
 use App\middleware\LocalizationMiddleware;
 use App\middleware\SessionDistributedMiddleware;
+use App\middleware\ThrottleRequests;
 
 use Symfony\Component\Translation\Loader\PhpFileLoader;
 use Symfony\Component\Translation\MessageSelector;
@@ -141,3 +142,11 @@ $container["translator"] = function ($c) {
 $sessionOptions = $container->get('settings')['session'];
 $sessionMiddleware = new SessionDistributedMiddleware($container['cache'], $sessionOptions);
 $app->add($sessionMiddleware);
+
+/*
+|--------------------------------------------------------------------------
+| Rate Limit Middleware
+|--------------------------------------------------------------------------
+| 用于访问的速率限制
+*/
+//$app->add(new ThrottleRequests());

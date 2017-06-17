@@ -38,7 +38,8 @@
         "davidepastore/slim-validation": "^0.5.0",
         "symfony/translation": "^3.3",
         "swiftmailer/swiftmailer": "^6.0",
-        "qiniu/php-sdk": "^7.1"
+        "qiniu/php-sdk": "^7.1",
+        "nesbot/carbon": "^1.22"
     },
     "autoload": {
         "psr-4": {

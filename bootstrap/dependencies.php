@@ -49,10 +49,10 @@ $app->add(new \DavidePastore\Slim\RestrictRoute\RestrictRoute($allowIpOptions));
 | referer: https://www.slimframework.com/docs/features/caching.html
 |
 */
-$container['cache'] = function () {
-    return new \Slim\HttpCache\CacheProvider();
-};
-$app->add(new \Slim\HttpCache\Cache('public', 86400));
+// $container['cache'] = function () {
+//     return new \Slim\HttpCache\CacheProvider();
+// };
+// $app->add(new \Slim\HttpCache\Cache('public', 86400));
 
 /*
 |--------------------------------------------------------------------------
