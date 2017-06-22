@@ -146,7 +146,14 @@ class Upload
             }
 
             if ($upinfo = $this->uploader->save($file, $this->replace)) {
-                $info[$key] = $upinfo;
+                $extends = [
+                                'origin_name'   => $file['name'],
+                                'name'          => $file['savename'],
+                                'ext'           => $ext,
+                                'size'          => $file['size'],
+                                'mime'          => $file['type'], 
+                            ];
+                $info[$key] = array_merge($upinfo, $extends);
             } else {
                 $this->error = $this->uploader->getError();
             }

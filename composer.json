@@ -39,7 +39,12 @@
         "symfony/translation": "^3.3",
         "swiftmailer/swiftmailer": "^6.0",
         "qiniu/php-sdk": "^7.1",
-        "nesbot/carbon": "^1.22"
+        "nesbot/carbon": "^1.22",
+        "guzzlehttp/guzzle": "^6.2",
+        "overtrue/wechat": "^3.3",
+        "gregwar/captcha": "^1.1",
+        "overtrue/pinyin": "^3.0",
+        "tightenco/collect": "^5.4"
     },
     "autoload": {
         "psr-4": {

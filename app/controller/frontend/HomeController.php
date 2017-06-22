@@ -15,7 +15,7 @@ class HomeController
 
     public function home($request, $response, $args) 
     {
-    	$this->container->logger->info('hello world');
+    	//$this->container->logger->info('hello world');
 
         // $attrs = $request->getAttributes();
         // echo $attrs['locale'];

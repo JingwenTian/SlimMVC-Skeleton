@@ -99,6 +99,58 @@ trait Common
 		return $result->rowCount();
 	}
 
+
+	/**
+	 * 开启事物
+	 *
+	 * @return [type] [description]
+	 */
+	public function beginTransaction()
+    {
+        $this->_dbLink->pdo->beginTransaction();
+    }
+
+    /**
+     * 提交事物
+     *
+     * @return [type] [description]
+     */
+    public function commit()
+    {
+        $this->_dbLink->pdo->commit();
+    }
+
+    /**
+     * 回滚事物
+     *
+     * @return [type] [description]
+     */
+    public function rollBack()
+    {
+        $this->_dbLink->pdo->rollBack();
+    }
+
+    /**
+     * 事物流程
+     *
+     * @param [type] $call [description]
+     *
+     * @return [type] [description]
+     */
+    public function transaction( $call )
+    {
+        $this->beginTransaction();
+        try {
+            $call($this);
+            $this->commit();
+            return true;
+        } catch (\Exception $exception) {
+            $this->rollBack();
+            throw $exception;
+        }
+    }
+    
+
 	/**
 	 * 查询 SQL 执行
 	 *

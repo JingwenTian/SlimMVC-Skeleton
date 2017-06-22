@@ -56,9 +56,12 @@ class Qiniu
         	return false;
         }
 
-        $url = "{$this->config['domain']}/{$remotePath}";
-        $extends = ['url' => $url];
-        return array_merge($result, $extends);
+        $upInfo = [
+                    'hash'  => $result['hash'],
+                    'path'  => $result['key'],
+                    'url'   => "{$this->config['domain']}/{$remotePath}",
+                  ];
+        return $upInfo;
     }
 
     public function getError()
