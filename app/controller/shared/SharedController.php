@@ -10,8 +10,8 @@ class SharedController extends BaseController
         $builder = new \Gregwar\Captcha\CaptchaBuilder();
         $builder->build();
         $phrase = $builder->getPhrase();
-        header('Content-type: image/jpeg');
-        $builder->output();die;
+        $builder->output();
+        return $response->withHeader('Content-type', 'image/jpeg');
     }
 
     public function upload( $request, $response, $args )
