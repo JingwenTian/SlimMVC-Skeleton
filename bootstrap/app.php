@@ -10,6 +10,12 @@ if (PHP_SAPI == 'cli-server') {
 
 require __DIR__ . '/../vendor/autoload.php';
 
+try {
+    (new Dotenv\Dotenv(__DIR__."/../config/".ENV."/"))->load();
+} catch (Dotenv\Exception\InvalidPathException $e) {
+    die('config load faild');
+}
+
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -17,13 +23,6 @@ require __DIR__ . '/../vendor/autoload.php';
 */
 $settings = require __DIR__ . '/settings.php';
 $app = new \Slim\App($settings);
-
-/*
-|--------------------------------------------------------------------------
-| Set up Util functions
-|--------------------------------------------------------------------------
-*/
-require __DIR__ . '/utils.php';
 
 /*
 |--------------------------------------------------------------------------

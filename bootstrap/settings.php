@@ -2,7 +2,7 @@
 
 return [
     'settings' => [
-        'displayErrorDetails' => true, // set to false in production
+        'displayErrorDetails' => env('APP_DEBUG'), // set to false in production
         'addContentLengthHeader' => false, // Allow the web server to send the content-length header
         'determineRouteBeforeAppMiddleware' => true, // // Only set this if you need access to route within middleware
         // Renderer settings
@@ -36,14 +36,14 @@ return [
         ],
         // Qiniu Storage settings
         'upload'    => [
-            'driver'    => 'qiniu',
+            'driver'    => env('UPLOAD_DRIVER'),
             'drivers'   => [
                 'qiniu' => [
-                    'domain'        => '',
-                    'access_key'    => '',
-                    'secret_key'    => '',
-                    'bucket'        => '',
-                    'timeout'       => 90,
+                    'domain'        => env('QINIU_DOMAIN'),
+                    'access_key'    => env('QINIU_ACCESS_KEY'),
+                    'secret_key'    => env('QINIU_SECRET_KEY'),
+                    'bucket'        => env('QINIU_BUCKET'),
+                    'timeout'       => env('QINIU_TIMEOUT'),
                 ]
             ]
         ],

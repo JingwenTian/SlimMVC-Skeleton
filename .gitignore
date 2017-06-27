@@ -92,4 +92,6 @@ bower_components
 !/public/uploads/README.md
 /public/assets/vendors/*
 !/public/assets/vendors/bower.json
-
+/config/production/.env
+/config/release/.env
+/config/development/.env

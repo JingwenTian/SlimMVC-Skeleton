@@ -16,8 +16,10 @@ class HomeController extends BaseController
         // $this->container->cache->set("cache_key", "hello slim");
         // echo $this->container->cache->get("cache_key");
 
-        return $this->container->view->render($response, 'frontend/home/index.phtml', ['translator' => $this->container->translator]);
-        
+    	//echo trans('home.hello', ['%name%' => 'Slim']);
+
+        //return $this->container->view->render($response, 'frontend/home/index.phtml', ['translator' => $this->container->translator]);
+        return view($response, 'frontend/home/index.phtml', ['translator' => $this->container->translator]);
     }
 
 
