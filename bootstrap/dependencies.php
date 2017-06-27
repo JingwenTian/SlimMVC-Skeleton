@@ -111,11 +111,11 @@ $container['logger'] = function ($c) {
 | 日志记录方式注册
 |
 */
-$container['db'] = function ($c) {
-    $settings = $c->get('settings')['database'];
-    $database = \App\helper\Database\Database::getInstance($settings);
-    return $database;
-};
+// $container['db'] = function ($c) {
+//     $settings = $c->get('settings')['database'];
+//     $database = \App\helper\Database\Database::getInstance($settings);
+//     return $database;
+// };
 
 /*
 |--------------------------------------------------------------------------

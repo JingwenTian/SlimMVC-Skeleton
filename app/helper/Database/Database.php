@@ -12,30 +12,48 @@ namespace App\helper\Database;
 class Database
 {
 
-    protected static $instance = null;
+    protected static $instance = [];
 
     private function __construct()
     {
     }
 
-    public static function getInstance($conf = null)
+    public static function getInstance( $master = true, $dbname = '' )
     {
-        if (!is_null(static::$instance)) {
-            return static::$instance;
+        $settings = app('settings')['database'];
+
+        $dbname = $dbname ? : $settings['default'];
+        $options = $settings['connection'][$dbname];
+
+        $clusterNode = ($master || !$options['cluster']) ? 'masters' : 'slaves';
+
+        $nodeIndex = rand(0, count($options[$clusterNode]) - 1);
+        $nodeOption = $options[$clusterNode][$nodeIndex];
+
+        try {
+
+            if (!$nodeOption) throw new \Exception;
+
+            $nodeFlag = $nodeOption['server'];
+
+            if (
+                !isset(static::$instance[$nodeFlag]) ||
+                empty(static::$instance[$nodeFlag])
+            ) {
+                static::$instance[$nodeFlag] = static::setInstance($nodeOption);
+            }
+
+            return static::$instance[$nodeFlag];
+
+        } catch (\Exception $e)
+        {
+            throw new \Exception('database connect failed', 500);
         }
 
-        $settings = require ROOT . '/bootstrap/settings.php';
-        $conf = is_null($conf) ? $settings['settings']['database'] : $conf;
-        if (is_array($conf)) {
-            static::$instance = static::setInstance($conf);
-            return static::$instance;
-        }
-
-
-        throw new \Exception('conf should be arrays');
     }
 
-    private static function setInstance(array $conf){
-        return new \Medoo\Medoo($conf);
+    private static function setInstance(array $option = []){
+        return new \Medoo\Medoo($option);
     }
+
 }

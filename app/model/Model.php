@@ -20,9 +20,9 @@ class Model implements ModelInterface
 
     use Common;
 
-    public function __construct()
+    public function __construct( $master = true, $dbname = '' )
     {
-        $this->_dbLink = Database::getInstance();
+        $this->_dbLink = Database::getInstance($master, $dbname);
 
     }
 

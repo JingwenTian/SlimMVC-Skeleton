@@ -2,31 +2,92 @@
 
 return [
     'settings' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Systerm
+        |--------------------------------------------------------------------------
+        |
+        */
+       
         'displayErrorDetails' => env('APP_DEBUG'), // set to false in production
         'addContentLengthHeader' => false, // Allow the web server to send the content-length header
         'determineRouteBeforeAppMiddleware' => true, // // Only set this if you need access to route within middleware
-        // Renderer settings
+        
+        /*
+        |--------------------------------------------------------------------------
+        | View
+        |--------------------------------------------------------------------------
+        |
+        */
+       
         'renderer' => [
             'locale_default' => 'zh_HK', // default lang
             'template_path' => __DIR__ . '/../resources/views/',
             'translations_path' => __DIR__ . '/../resources/translations/',
         ],
-        // Monolog settings
+        /*
+        |--------------------------------------------------------------------------
+        | Monolog
+        |--------------------------------------------------------------------------
+        |
+        */
         'logger' => [
             'name' => 'SLIM',
             'path' => __DIR__ . '/../storage/logs/app-' . date('Y-m-d') . '.log',
             'level' => \Monolog\Logger::INFO,
         ],
-        // Mysql settings
+
+        /*
+        |--------------------------------------------------------------------------
+        | Database Connections
+        |--------------------------------------------------------------------------
+        |
+        */
         'database' => [
-        	'database_type' => 'mysql',
-		    'database_name' => 'dbname',
-		    'server' 		=> '127.0.0.1',
-		    'username' 		=> 'username', 
-		    'password' 		=> 'password', 
-		    'charset' 		=> 'utf8mb4'
+
+            'default' => env('DB_DEFAULT', 'test'), // default database
+
+            'connection' => [
+
+                'test' => [
+
+                    'cluster' => env('DB_TEST_CLUSTER', false),
+
+                    'masters'    => [
+                        [
+                            'database_type' => env('DB_TEST_MASTER_TYPE', 'mysql'),
+                            'database_name' => env('DB_TEST_MASTER_NAME', 'test'),
+                            'server'        => env('DB_TEST_MASTER_SERVER', 'localhost'),
+                            'username'      => env('DB_TEST_MASTER_USER', 'root'), 
+                            'password'      => env('DB_TEST_MASTER_PWD', ''),
+                            'charset'       => env('DB_TEST_MASTER_CHARSET', 'utf8mb4'),
+                            'port'          => env('DB_TEST_MASTER_PORT', '3306'),
+                            'prefix'        => env('DB_TEST_MASTER_PREFIX', ''),
+                        ],
+                    ],
+
+                    'slaves' => [
+                        [
+                            'database_type' => env('DB_TEST_SLAVE1_TYPE', 'mysql'),
+                            'database_name' => env('DB_TEST_SLAVE1_NAME', 'test'),
+                            'server'        => env('DB_TEST_SLAVE1_SERVER', 'localhost'),
+                            'username'      => env('DB_TEST_SLAVE1_USER', 'root'), 
+                            'password'      => env('DB_TEST_SLAVE1_PWD', ''),
+                            'charset'       => env('DB_TEST_SLAVE1_CHARSET', 'utf8mb4'),
+                            'port'          => env('DB_TEST_SLAVE1_PORT', '3306'),
+                            'prefix'        => env('DB_TEST_SLAVE1_PREFIX', ''),
+                        ],
+                    ],
+            	],
+            ],
         ],
-        // Cache settings
+
+        /*
+        |--------------------------------------------------------------------------
+        | Redis Databases
+        |--------------------------------------------------------------------------
+        |
+        */
         'cache' => [
             'scheme'        => 'tcp',
             'host'          => '127.0.0.1',
@@ -34,9 +95,15 @@ return [
             'database'      => 1,
             //'password'      => '',
         ],
-        // Qiniu Storage settings
+
+        /*
+        |--------------------------------------------------------------------------
+        | Upload Storage
+        |--------------------------------------------------------------------------
+        |
+        */
         'upload'    => [
-            'driver'    => env('UPLOAD_DRIVER'),
+            'driver'    => env('UPLOAD_DRIVER', 'qiniu'),
             'drivers'   => [
                 'qiniu' => [
                     'domain'        => env('QINIU_DOMAIN'),
@@ -47,10 +114,23 @@ return [
                 ]
             ]
         ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Session
+        |--------------------------------------------------------------------------
+        |
+        */
         'session' => [
             'gc_maxlifetime'   => 3600,
         ],
-        // Authentication settings
+
+        /*
+        |--------------------------------------------------------------------------
+        | Http Authentication
+        |--------------------------------------------------------------------------
+        |
+        */
         'httpBasicAuthentication' => [
             "secure"        => false, // 是否开启安全模式: 验证 https和 IP
             "relaxed"       => [], // IP白名单
@@ -58,6 +138,13 @@ return [
             "path"          => ["/admin"], // 需要鉴权的路径
             "passthrough"   => ["/admin/login"], // 无需鉴权的路径
         ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Jwt Authentication
+        |--------------------------------------------------------------------------
+        |
+        */
         "jwtAuthentication"   => [
             "secure"        => false, // 是否开启安全模式: 验证 https和 IP
             "relaxed"       => [], // IP白名单
