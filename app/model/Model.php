@@ -3,6 +3,7 @@
 namespace App\model;
 
 use App\helper\Database\Database;
+use App\helper\Database\IMedoo;
 use App\interfaces\ModelInterface;
 
 use App\controller\exception\MassAssignmentException;
@@ -12,17 +13,28 @@ use App\model\Consts;
 
 class Model implements ModelInterface
 {
-    public  $_dbLink;
+    /**
+     * @var IMedoo
+     */
+    public $_dbLink;
 
     protected $_table = '';
+
+    protected $_dbname = '';
 
     protected $_primaryKey = 'id';
 
     use Common;
 
-    public function __construct( $master = true, $dbname = '' )
+    public function useWrite()
     {
-        $this->_dbLink = Database::getInstance($master, $dbname);
+        $this->_dbLink->useWritePdo();
+        return $this;
+    }
+
+    public function __construct()
+    {
+        $this->_dbLink = Database::getInstance($this->_dbname);
 
     }
 
@@ -77,8 +89,6 @@ class Model implements ModelInterface
         }
         return $id;
     }
-
-
 
 
 }

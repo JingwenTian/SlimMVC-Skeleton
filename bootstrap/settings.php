@@ -45,11 +45,11 @@ return [
         */
         'database' => [
 
-            'default' => env('DB_DEFAULT', 'test'), // default database
+            'default' => env('DB_DEFAULT', 'slim'), // default database
 
             'connection' => [
 
-                'test' => [
+                'slim' => [
 
                     'cluster' => env('DB_TEST_CLUSTER', false),
 

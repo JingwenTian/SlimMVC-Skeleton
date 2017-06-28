@@ -18,42 +18,44 @@ class Database
     {
     }
 
-    public static function getInstance( $master = true, $dbname = '' )
+    public static function getInstance($dbname = '')
     {
         $settings = app('settings')['database'];
 
-        $dbname = $dbname ? : $settings['default'];
+        $dbname = $dbname ?: $settings['default'];
         $options = $settings['connection'][$dbname];
 
-        $clusterNode = ($master || !$options['cluster']) ? 'masters' : 'slaves';
 
+        $nodeIndex = rand(0, count($options['masters']) - 1);
+        $nodeOption = $options['masters'][$nodeIndex];
+
+        $clusterNode = !$options['cluster'] ? 'masters' : 'slaves';
         $nodeIndex = rand(0, count($options[$clusterNode]) - 1);
-        $nodeOption = $options[$clusterNode][$nodeIndex];
+        $read_conf = $options[$clusterNode][$nodeIndex];
 
         try {
 
             if (!$nodeOption) throw new \Exception;
-
-            $nodeFlag = $nodeOption['server'];
+            $nodeFlag = $dbname;
 
             if (
                 !isset(static::$instance[$nodeFlag]) ||
                 empty(static::$instance[$nodeFlag])
             ) {
-                static::$instance[$nodeFlag] = static::setInstance($nodeOption);
+                static::$instance[$nodeFlag] = static::setInstance($nodeOption, $read_conf);
             }
 
             return static::$instance[$nodeFlag];
 
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             throw new \Exception('database connect failed', 500);
         }
 
     }
 
-    private static function setInstance(array $option = []){
-        return new \Medoo\Medoo($option);
+    private static function setInstance(array $option = [], $read_conf = null)
+    {
+        return (new IMedoo($option))->setReadPdoConf($read_conf);
     }
 
 }

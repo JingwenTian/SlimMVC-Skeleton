@@ -44,7 +44,8 @@
         "overtrue/wechat": "^3.3",
         "gregwar/captcha": "^1.1",
         "overtrue/pinyin": "^3.0",
-        "tightenco/collect": "^5.4"
+        "tightenco/collect": "^5.4",
+        "phpmyadmin/sql-parser": "^4.1"
     },
     "autoload": {
         "psr-4": {
