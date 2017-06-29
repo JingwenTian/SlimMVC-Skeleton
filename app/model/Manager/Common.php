@@ -1,11 +1,21 @@
 <?php 
 
-namespace App\model;
+namespace App\model\Manager;
 
+use App\controller\exception\MassAssignmentException;
+use App\controller\exception\ModelNotFoundException;
 use App\model\Consts;
 
 trait Common  
 {	
+
+	/*
+    |--------------------------------------------------------------------------
+    | 基础操作
+    |--------------------------------------------------------------------------
+    | 包括增、删、改、查行为
+    */
+   
 	/**
 	 * 数据写入
 	 *
@@ -19,7 +29,8 @@ trait Common
 			return false;
 		}
 		$lastId = $this->_dbLink->insert( $this->_table, $params );
-		return $lastId ? $this->_dbLink->id() : $lastId;
+		return $lastId;
+		//return $lastId ? $this->_dbLink->id() : $lastId;
 	}
 
 	/**
@@ -35,7 +46,6 @@ trait Common
 		if (!$condition || !$params) {
 			return false;
 		}
-		!isset($params['update_date']) && $params['update_date'] = time();
 		$result = $this->_dbLink->update( $this->_table, $params, $condition );
 		return $result->rowCount();
 	}
@@ -99,6 +109,45 @@ trait Common
 		return $result->rowCount();
 	}
 
+	/**
+	 * 查询 SQL 执行 [NOT RECOMMENDED]
+	 *
+	 * @param string $sql  [description]
+	 * @param [type] $flag [description]
+	 *
+	 * @return [type] [description]
+	 */
+	public function query( $sql = '', $flag = Consts::GET_ROW_FLAG )
+	{
+		$result = [];
+
+		switch ( $flag ) {
+			default:
+			case Consts::GET_ROW_FLAG:
+			case Consts::GET_COUNT_FLAG:
+			case Consts::GET_MAX_FLAG: 
+			case Consts::GET_MIN_FLAG: 
+			case Consts::GET_AVG_FLAG: 
+			case Consts::GET_SUM_FLAG: 
+			case Consts::GET_HAS_FLAG: 
+				$result = $this->_dbLink->query( $sql )->fetch(\PDO::FETCH_ASSOC);
+				break;
+			case Consts::GET_ALL_FLAG:
+			case Consts::GET_PAGE_FLAG:
+				$result = $this->_dbLink->query( $sql )->fetchAll(\PDO::FETCH_ASSOC);
+				break;
+		}
+
+		return $result;
+	}
+
+	/*
+    |--------------------------------------------------------------------------
+    | 事物操作
+    |--------------------------------------------------------------------------
+    | 包括开启事物、提交事物、回滚事物行为, 也可以使用 medoo提供的 action 方法来实现
+    */
+
 
 	/**
 	 * 开启事物
@@ -149,39 +198,15 @@ trait Common
             throw $exception;
         }
     }
+
     
-
-	/**
-	 * 查询 SQL 执行
-	 *
-	 * @param string $sql  [description]
-	 * @param [type] $flag [description]
-	 *
-	 * @return [type] [description]
-	 */
-	public function query( $sql = '', $flag = Consts::GET_ROW_FLAG )
-	{
-		$result = [];
-
-		switch ( $flag ) {
-			default:
-			case Consts::GET_ROW_FLAG:
-			case Consts::GET_COUNT_FLAG:
-			case Consts::GET_MAX_FLAG: 
-			case Consts::GET_MIN_FLAG: 
-			case Consts::GET_AVG_FLAG: 
-			case Consts::GET_SUM_FLAG: 
-			case Consts::GET_HAS_FLAG: 
-				$result = $this->_dbLink->query( $sql )->fetch(\PDO::FETCH_ASSOC);
-				break;
-			case Consts::GET_ALL_FLAG:
-			case Consts::GET_PAGE_FLAG:
-				$result = $this->_dbLink->query( $sql )->fetchAll(\PDO::FETCH_ASSOC);
-				break;
-		}
-
-		return $result;
-	}
+    /*
+    |--------------------------------------------------------------------------
+    | 调试操作
+    |--------------------------------------------------------------------------
+    | 用于打印执行的 SQL 及数据库信息等
+    */
+	
 
 	/**
 	 * 数据执行调试
@@ -212,5 +237,64 @@ trait Common
 		return $result;
 
 	}
+
+	/*
+    |--------------------------------------------------------------------------
+    | 扩展操作
+    |--------------------------------------------------------------------------
+    | 对基础操作的便利性封装
+    */
+
+	public function first($condition, $columns = "*")
+    {
+        $res = $this->select($condition, Consts::GET_ROW_FLAG, $columns);
+        return $res;
+    }
+
+    public function get($condition, $columns = "*")
+    {
+        $res = $this->select($condition, Consts::GET_ALL_FLAG, $columns);
+        return $res;
+    }
+
+    public function count($condition)
+    {
+        $res = $this->select($condition, Consts::GET_COUNT_FLAG);
+        return $res;
+    }
+
+    public function find($id, $columns = '*')
+    {
+        $condition = [$this->_primaryKey => $id];
+        $res = $this->first($condition, $columns);
+        return $res;
+    }
+
+    public function findOrFail($id, $columns = '*')
+    {
+        $res = $this->find($id, $columns);
+        if ($res === false) {
+            throw (new ModelNotFoundException())->setModel(get_class($this), $id);
+        }
+        return $res;
+    }
+
+    public function firstOrFail($condition, $columns = '*')
+    {
+        $res = $this->first($condition, $columns);
+        if ($res === false) {
+            throw (new ModelNotFoundException())->setModel(get_class($this));
+        }
+        return $res;
+    }
+
+    public function insertOrFail($params)
+    {
+        $id = $this->insert($params);
+        if (!$id) {
+            throw new MassAssignmentException('添加失败', 400);
+        }
+        return $id;
+    }
 
 }

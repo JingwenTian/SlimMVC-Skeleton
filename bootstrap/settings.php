@@ -51,31 +51,31 @@ return [
 
                 'slim' => [
 
-                    'cluster' => env('DB_TEST_CLUSTER', false),
+                    'cluster' => env('DB_SLIM_CLUSTER', false),
 
                     'masters'    => [
                         [
-                            'database_type' => env('DB_TEST_MASTER_TYPE', 'mysql'),
-                            'database_name' => env('DB_TEST_MASTER_NAME', 'test'),
-                            'server'        => env('DB_TEST_MASTER_SERVER', 'localhost'),
-                            'username'      => env('DB_TEST_MASTER_USER', 'root'), 
-                            'password'      => env('DB_TEST_MASTER_PWD', ''),
-                            'charset'       => env('DB_TEST_MASTER_CHARSET', 'utf8mb4'),
-                            'port'          => env('DB_TEST_MASTER_PORT', '3306'),
-                            'prefix'        => env('DB_TEST_MASTER_PREFIX', ''),
+                            'database_type' => env('DB_SLIM_MASTER_TYPE', 'mysql'),
+                            'database_name' => env('DB_SLIM_MASTER_NAME', 'test'),
+                            'server'        => env('DB_SLIM_MASTER_SERVER', 'localhost'),
+                            'username'      => env('DB_SLIM_MASTER_USER', 'root'), 
+                            'password'      => env('DB_SLIM_MASTER_PWD', ''),
+                            'charset'       => env('DB_SLIM_MASTER_CHARSET', 'utf8mb4'),
+                            'port'          => env('DB_SLIM_MASTER_PORT', '3306'),
+                            'prefix'        => env('DB_SLIM_MASTER_PREFIX', ''),
                         ],
                     ],
 
                     'slaves' => [
                         [
-                            'database_type' => env('DB_TEST_SLAVE1_TYPE', 'mysql'),
-                            'database_name' => env('DB_TEST_SLAVE1_NAME', 'test'),
-                            'server'        => env('DB_TEST_SLAVE1_SERVER', 'localhost'),
-                            'username'      => env('DB_TEST_SLAVE1_USER', 'root'), 
-                            'password'      => env('DB_TEST_SLAVE1_PWD', ''),
-                            'charset'       => env('DB_TEST_SLAVE1_CHARSET', 'utf8mb4'),
-                            'port'          => env('DB_TEST_SLAVE1_PORT', '3306'),
-                            'prefix'        => env('DB_TEST_SLAVE1_PREFIX', ''),
+                            'database_type' => env('DB_SLIM_SLAVE1_TYPE', 'mysql'),
+                            'database_name' => env('DB_SLIM_SLAVE1_NAME', 'test'),
+                            'server'        => env('DB_SLIM_SLAVE1_SERVER', 'localhost'),
+                            'username'      => env('DB_SLIM_SLAVE1_USER', 'root'), 
+                            'password'      => env('DB_SLIM_SLAVE1_PWD', ''),
+                            'charset'       => env('DB_SLIM_SLAVE1_CHARSET', 'utf8mb4'),
+                            'port'          => env('DB_SLIM_SLAVE1_PORT', '3306'),
+                            'prefix'        => env('DB_SLIM_SLAVE1_PREFIX', ''),
                         ],
                     ],
             	],

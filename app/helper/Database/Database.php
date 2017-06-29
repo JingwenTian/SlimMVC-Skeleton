@@ -26,26 +26,27 @@ class Database
         $options = $settings['connection'][$dbname];
 
 
-        $nodeIndex = rand(0, count($options['masters']) - 1);
-        $nodeOption = $options['masters'][$nodeIndex];
+        $masterNodeIndex = rand(0, count($options['masters']) - 1);
+        $masterNodeOption = $options['masters'][$masterNodeIndex];
 
         $clusterNode = !$options['cluster'] ? 'masters' : 'slaves';
-        $nodeIndex = rand(0, count($options[$clusterNode]) - 1);
-        $read_conf = $options[$clusterNode][$nodeIndex];
+        $slaveNodeIndex = rand(0, count($options[$clusterNode]) - 1);
+        $slaveNodeOption = $options[$clusterNode][$slaveNodeIndex];
 
         try {
 
-            if (!$nodeOption) throw new \Exception;
-            $nodeFlag = $dbname;
+            if (!$masterNodeOption || !$slaveNodeOption) throw new \Exception;
+
+            $nodeUniqueFlag = $dbname;
 
             if (
-                !isset(static::$instance[$nodeFlag]) ||
-                empty(static::$instance[$nodeFlag])
+                !isset(static::$instance[$nodeUniqueFlag]) ||
+                empty(static::$instance[$nodeUniqueFlag])
             ) {
-                static::$instance[$nodeFlag] = static::setInstance($nodeOption, $read_conf);
+                static::$instance[$nodeUniqueFlag] = static::setInstance($slaveNodeOption, $masterNodeOption, $options['cluster']);
             }
 
-            return static::$instance[$nodeFlag];
+            return static::$instance[$nodeUniqueFlag];
 
         } catch (\Exception $e) {
             throw new \Exception('database connect failed', 500);
@@ -53,9 +54,12 @@ class Database
 
     }
 
-    private static function setInstance(array $option = [], $read_conf = null)
-    {
-        return (new IMedoo($option))->setReadPdoConf($read_conf);
+    private static function setInstance(
+        array $slaveOption = [], 
+        array $masterOption = [], 
+        $cluster = false
+    ) {
+        return (new Connector($slaveOption))->setCluster($cluster)->setMasterOption($masterOption);
     }
 
 }

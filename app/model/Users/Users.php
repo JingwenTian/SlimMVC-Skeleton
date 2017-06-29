@@ -2,10 +2,11 @@
 
 namespace App\model\Users;
 
-use App\model\Model;
+use App\model\Manager\Model;
+use App\model\Connectors\SlimConnection;
 
-class Users extends Model
+class Users extends SlimConnection
 {
 	protected $_table = 'users';
 
-}
+}  
