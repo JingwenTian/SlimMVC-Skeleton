@@ -106,7 +106,6 @@ class Connector extends Medoo
         $stmt = $this->parseStatement($query);
         
         if ($stmt != self::STATEMENT_SELECT) {
-            $write = true;
             $this->_useMasterPdo = true;
         } 
 

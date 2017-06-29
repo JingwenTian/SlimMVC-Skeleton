@@ -89,11 +89,15 @@ return [
         |
         */
         'cache' => [
-            'scheme'        => 'tcp',
-            'host'          => '127.0.0.1',
-            'port'          => 6379,
-            'database'      => 1,
-            //'password'      => '',
+            'default'   => [
+                'scheme'                => env('REDIS_SCHEME', 'tcp'),
+                'host'                  => env('REDIS_HOST', 'localhost'),
+                'port'                  => env('REDIS_PORT', '6379'),
+                'database'              => env('REDIS_DATABASE', 0),
+                'password'              => env('REDIS_PASSWORD', null),
+                'timeout'               => env('REDIS_TIMEOUT', 5),
+                'read_write_timeout'    => env('REDIS_READ_WRITE_TIMEOUT', 60),
+            ]
         ],
 
         /*

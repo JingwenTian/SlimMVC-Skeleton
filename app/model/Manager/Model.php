@@ -29,7 +29,7 @@ class Model implements ModelInterface
 
     public function __construct()
     {
-        $this->_dbLink = Database::getInstance($this->_dbname);
+        $this->_dbLink = Database::connection($this->_dbname);
 
     }
 

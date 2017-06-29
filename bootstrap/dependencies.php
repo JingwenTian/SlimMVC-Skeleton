@@ -108,13 +108,11 @@ $container['logger'] = function ($c) {
 |--------------------------------------------------------------------------
 | Db handler
 |--------------------------------------------------------------------------
-| 日志记录方式注册
+| 数据库连接注册
 |
 */
 // $container['db'] = function ($c) {
-//     $settings = $c->get('settings')['database'];
-//     $database = \App\helper\Database\Database::getInstance($settings);
-//     return $database;
+//     return \App\helper\Database\Database::connection();
 // };
 
 /*
@@ -125,9 +123,8 @@ $container['logger'] = function ($c) {
 |
 */
 $container['cache'] = function ($c) {
-    $settings = $c->get('settings')['cache'];
     $extends  = [
         'prefix'    => 'cache:'
     ];
-    return \App\helper\Database\Cache::getInstance($settings, $extends);
+    return \App\helper\Database\Cache::connection(null, $extends);
 };

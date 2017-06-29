@@ -8,17 +8,25 @@
 
 namespace App\helper\Database;
 
+use InvalidArgumentException;
 
 class Database
 {
 
-    protected static $instance = [];
+    /**
+     * The MySQL connections.
+     *
+     * @var array
+     */
+    protected static $connections = [];
 
-    private function __construct()
-    {
-    }
 
-    public static function getInstance($dbname = '')
+    /**
+     * Get a MySQL connection by name.
+     *
+     * @param  string|null  $name
+     */
+    public static function connection($dbname = '')
     {
         $settings = app('settings')['database'];
 
@@ -43,18 +51,22 @@ class Database
                 !isset(static::$instance[$nodeUniqueFlag]) ||
                 empty(static::$instance[$nodeUniqueFlag])
             ) {
-                static::$instance[$nodeUniqueFlag] = static::setInstance($slaveNodeOption, $masterNodeOption, $options['cluster']);
+                static::$instance[$nodeUniqueFlag] = static::resolve($slaveNodeOption, $masterNodeOption, $options['cluster']);
             }
 
             return static::$instance[$nodeUniqueFlag];
 
         } catch (\Exception $e) {
-            throw new \Exception('database connect failed', 500);
+            throw new InvalidArgumentException('database connect failed', 500);
         }
 
     }
 
-    private static function setInstance(
+    /**
+     * Resolve the given connection by name.
+     *
+     */
+    private static function resolve(
         array $slaveOption = [], 
         array $masterOption = [], 
         $cluster = false
