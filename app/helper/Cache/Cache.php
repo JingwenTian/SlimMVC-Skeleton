@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\helper\Database;
+namespace App\helper\Cache;
 
 use InvalidArgumentException;
 use Predis\Client;
@@ -24,12 +24,12 @@ class Cache
     public static function connection($name = null, array $extends = [])
     {
         $name = $name ? : 'default';
-
+        
     	if (isset(static::$connections[$name])) {
             return static::$connections[$name];
         }
 
-        return static::$connections = static::resolve($name, $extends);
+        return static::$connections[$name] = static::resolve($name, $extends);
 
     }
 

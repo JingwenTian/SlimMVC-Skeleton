@@ -2,16 +2,44 @@
 
 namespace App\middleware;
 
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
+use Carbon\Carbon;
+use \Psr\Http\Message\RequestInterface;
+use \Psr\Http\Message\ResponseInterface;
+
+use App\helper\Cache\RateLimiter;
 
 /**
- * Doing....
+ * Handle an incoming request.
  */
 class ThrottleRequests
 {
-	public function __construct() 
+     /**
+     * The rate limiter instance.
+     *
+     * @var \App\helper\Cache\RateLimiter
+     */
+    protected $limiter;
+
+    /**
+     * The rate limiter option.
+     *
+     * @var array
+     */
+    protected $options = [
+                            'max_attempts'  => 120,
+                            'decay_minutes' => 1
+                        ];
+
+    /**
+     * Create a new request throttler.
+     *
+     * @return void
+     */
+	public function __construct( array $options = [] ) 
 	{
+        $this->options = array_merge($this->options, $options);
+
+        $this->limiter = new RateLimiter();
 	}
 
 	/**
@@ -26,8 +54,20 @@ class ThrottleRequests
 	public function __invoke(RequestInterface $request, ResponseInterface $response, callable $next)
     {
         $key = $this->resolveRequestSignature($request);
+
+        $maxAttempts = $this->options['max_attempts'];
+        $decayMinutes = $this->options['decay_minutes'];
+
+        if ($this->limiter->tooManyAttempts($key, $maxAttempts, $decayMinutes)) {
+            return $this->buildResponse($response, $key, $maxAttempts);
+        }
+
+        $this->limiter->hit($key, $decayMinutes);
         
-        
+        $response = $this->addHeaders(
+            $response, $maxAttempts,
+            $this->calculateRemainingAttempts($key, $maxAttempts)
+        );
         return $next($request, $response);
     }
 
@@ -48,13 +88,14 @@ class ThrottleRequests
     /**
      * Create a 'too many attempts' response.
      *
+     * @param  $response
      * @param  string  $key
      * @param  int  $maxAttempts
      * @return Response
      */
-    protected function buildResponse($key, $maxAttempts)
+    protected function buildResponse(ResponseInterface $response, $key, $maxAttempts)
     {
-        $response = new Response('Too Many Attempts.', 429);
+        $response = $response->withStatus(429);
         $retryAfter = $this->limiter->availableIn($key);
         return $this->addHeaders(
             $response, $maxAttempts,
@@ -72,7 +113,7 @@ class ThrottleRequests
      * @param  int|null  $retryAfter
      * @return Response
      */
-    protected function addHeaders(Response $response, $maxAttempts, $remainingAttempts, $retryAfter = null)
+    protected function addHeaders(ResponseInterface $response, $maxAttempts, $remainingAttempts, $retryAfter = null)
     {
         $headers = [
             'X-RateLimit-Limit' => $maxAttempts,
@@ -82,8 +123,26 @@ class ThrottleRequests
             $headers['Retry-After'] = $retryAfter;
             $headers['X-RateLimit-Reset'] = Carbon::now()->getTimestamp() + $retryAfter;
         }
-        $response->headers->add($headers);
+        foreach ($headers as $name => $value) {
+            $response = $response->withHeader($name, $value);
+        }
         return $response;
+    }
+
+    /**
+     * Calculate the number of remaining attempts.
+     *
+     * @param  string  $key
+     * @param  int  $maxAttempts
+     * @param  int|null  $retryAfter
+     * @return int
+     */
+    protected function calculateRemainingAttempts($key, $maxAttempts, $retryAfter = null)
+    {
+        if (is_null($retryAfter)) {
+            return $this->limiter->retriesLeft($key, $maxAttempts);
+        }
+        return 0;
     }
 
 }

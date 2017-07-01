@@ -147,6 +147,7 @@ $app->add($sessionMiddleware);
 |--------------------------------------------------------------------------
 | Rate Limit Middleware
 |--------------------------------------------------------------------------
-| 用于访问的速率限制
+| 用于访问的速率限制, 默认最多1分钟访问120次
 */
-//$app->add(new ThrottleRequests());
+$throttleOptions = ['max_attempts'  => 120, 'decay_minutes' => 1];
+$app->add(new ThrottleRequests($throttleOptions));

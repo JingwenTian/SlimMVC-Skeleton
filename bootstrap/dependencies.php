@@ -126,5 +126,5 @@ $container['cache'] = function ($c) {
     $extends  = [
         'prefix'    => 'cache:'
     ];
-    return \App\helper\Database\Cache::connection(null, $extends);
+    return \App\helper\Cache\Cache::connection(null, $extends);
 };
